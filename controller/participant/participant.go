@@ -68,7 +68,7 @@ func batchRemoveParticipants(deleteId []int) int {
 }
 
 func listAllParticipants() []Participant {
-	var res []Participant
+	res := make([]Participant, 0)
 	for _, p := range UsersID {
 		res = append(res, Users[p])
 	}
