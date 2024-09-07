@@ -52,7 +52,7 @@ func batchRemoveSubmission(deleteId []int) int {
 
 func listSubmissions() []Submission {
 	//列出提交
-	var res []Submission
+	res := make([]Submission, 0)
 	for _, v := range SubmissionsID {
 		res = append(res, Submissions[v])
 	}
