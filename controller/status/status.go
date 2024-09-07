@@ -76,13 +76,15 @@ func updateBoardStatus() {
 		var submissions []RecordSubmission
 		for pid := 1; pid <= contest.Contest.Count; pid++ {
 			if recordSubmissions[Pair{p.ID, pid}].Status == "Accepted" {
-				penalty += recordSubmissions[Pair{p.ID, pid}].Time + (recordSubmissions[Pair{p.ID, pid}].Tries-1)*20
+				penalty += (recordSubmissions[Pair{p.ID, pid}].Time-contest.Contest.Begin)/60 + (recordSubmissions[Pair{p.ID, pid}].Tries-1)*20
 				solved++
 			}
-			tmp := recordSubmissions[Pair{p.ID, pid}]
-			tmp.ProblemID = pid
-			recordSubmissions[Pair{p.ID, pid}] = tmp
-			submissions = append(submissions, recordSubmissions[Pair{p.ID, pid}])
+			submissions = append(submissions, RecordSubmission{
+				ProblemID: pid,
+				Tries:     recordSubmissions[Pair{p.ID, pid}].Tries,
+				Time:      recordSubmissions[Pair{p.ID, pid}].Time,
+				Status:    recordSubmissions[Pair{p.ID, pid}].Status,
+			})
 		}
 		records = append(records, Record{
 			ParticipantID:         p.ID,
