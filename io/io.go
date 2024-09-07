@@ -24,6 +24,9 @@ func input() error {
 		return err
 	}
 	err = json.Unmarshal(a, &res)
+	if res.Users == nil {
+		return err
+	}
 	submission.SubmissionsID = res.SubmissionsID
 	submission.Submissions = res.Submissions
 	submission.SubId = res.SubId
